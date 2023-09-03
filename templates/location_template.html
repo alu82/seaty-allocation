@@ -1,0 +1,179 @@
+<html>
+    <head>
+        <title>Saalbelegung</title>
+        <meta charset="utf-8">
+        <style>
+            .flex-container {
+              display: flex;
+              flex-wrap: nowrap;
+              background-color: DodgerBlue;
+            }
+
+            .flex-container > div {
+              background-color: #f1f1f1;
+              width: 18%;
+              margin: 0.3rem;
+              text-align: center;
+              line-height: 1.5em;
+              font-size: 0.8em;
+            }
+            
+            .seat {
+                display: flex;
+            }
+            
+            .title {
+                font-size: 1.7em;
+            }
+            
+            .seat > div {
+                background-color: #add8e6;
+                margin: 0.3rem;
+                padding: 0.3rem;
+                border: 2px solid #add8e6;
+                height: 4.5rem;
+            }
+            
+            .seat .left {
+                flex: 50%;
+                text-align: left;
+            }
+            
+            .seat .left .title {
+                float: right;
+            }
+            
+            .seat .right {
+                flex: 50%;
+                text-align: right;
+            }
+            
+            .seat .right .title {
+                float: left;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div id="block_1" class="flex-container">
+            {% for row in block_1 %}
+                <div>
+                    <div><h3>Reihe {{ loop.index }}</h3></div>
+                    {% for seat_idx in range(0,24,2) %}
+                        <div class="seat">
+                            <div class="left {{ row[seat_idx] }}">
+                                <div class="title">
+                                    {{ seat_idx+1 }}
+                                </div>
+                                <div>
+                                    {{ row[seat_idx] }} <br />
+                                    {{ res_to_name[row[seat_idx]] }}
+                                </div>
+                            </div>
+                            <div class="right {{ row[seat_idx+1] }}">
+                                <div class="title">
+                                    {{ seat_idx+2 }}
+                                </div>
+                                <div>
+                                    {{ row[seat_idx+1] }} <br />
+                                    {{ res_to_name[row[seat_idx+1]] }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        <div id="block_2" class="flex-container">
+            {% for row in block_2 %}
+                <div>
+                    <div><h3>Reihe {{ loop.index+4 }}</h3></div>
+                    {% for seat_idx in range(0,19,2) %}
+                        <div class="seat">
+                            <div class="left {{ row[seat_idx] }}">
+                                <div class="title">
+                                    {{ seat_idx+1 }}
+                                </div>
+                                <div>
+                                    {{ row[seat_idx] }} <br />
+                                    {{ res_to_name[row[seat_idx]] }}
+                                </div>
+                            </div>
+                            {% if seat_idx != 18 %}
+                                <div class="right {{ row[seat_idx+1] }}">
+                                    <div class="title">
+                                        {{ seat_idx+2 }}
+                                    </div>
+                                    <div>
+                                        {{ row[seat_idx+1] }} <br />
+                                        {{ res_to_name[row[seat_idx+1]] }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        <div id="block_3" class="flex-container">
+            {% for row in block_3 %}
+                <div>
+                    <div><h3>Reihe {{ loop.index+9 }}</h3></div>
+                    {% for seat_idx in range(0,4,2) %}
+                        <div class="seat">
+                            <div class="left {{ row[seat_idx] }}">
+                                <div class="title">
+                                    {{ seat_idx+1 }}
+                                </div>
+                                <div>
+                                    {{ row[seat_idx] }} <br />
+                                    {{ res_to_name[row[seat_idx]] }}
+                                </div>
+                            </div>
+                            <div class="right {{ row[seat_idx+1] }}">
+                                <div class="title">
+                                    {{ seat_idx+2 }}
+                                </div>
+                                <div>
+                                    {{ row[seat_idx+1] }} <br />
+                                    {{ res_to_name[row[seat_idx+1]] }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+    
+    <script>
+        
+        addSameReservationHover("left");
+        addSameReservationHover("right");
+        
+        function addSameReservationHover(classname) {
+            function mouseOver(event) {
+                event.currentTarget.style.border = "2px solid #e3f988";
+                
+                const resnr = event.currentTarget.className.split(' ')[1];
+                document.querySelectorAll('div.'+CSS.escape(resnr)).forEach((seat) => {
+                    seat.style.border = "2px solid #e3f988";
+                });
+            }
+            
+            function mouseOut(event) {
+                event.currentTarget.style.border = "2px solid #add8e6";
+                const resnr = event.currentTarget.className.split(' ')[1];
+                document.querySelectorAll('div.'+CSS.escape(resnr)).forEach((seat) => {
+                    seat.style.border = "2px solid #add8e6";
+                });
+            }
+            
+            const seats = document.querySelectorAll('div.seat > div.' + classname);
+            seats.forEach((seat) => {
+                seat.addEventListener("mouseover", mouseOver);
+                seat.addEventListener("mouseout", mouseOut);
+            });
+        }
+    </script>
+</html>
