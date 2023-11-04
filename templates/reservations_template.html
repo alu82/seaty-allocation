@@ -3,6 +3,7 @@
         <title>Reservierungen mit Namen</title>
         <meta charset="utf-8">
         <style>
+            
             .flex-container {
               display: flex;
               flex-wrap: wrap;
@@ -16,6 +17,7 @@
                 line-height: 1.5em;
                 border:1px solid black;
                 min-height:7rem;
+                break-inside: avoid;
             }
             
         </style>
@@ -25,16 +27,16 @@
             {% for res in reservations %}
                 <div class="card">
                     <div>
-                        <strong>{{ res['Res.Nr.'] }}</strong>
+                        <strong>{{ res['code'] }}</strong>
                     </div>
                     <div>
-                        Karten: {{ res['Anzahl Karten'] }}
+                        Karten: {{ res['seats'] }}
                     </div>
                     <div>
-                        Name: {{ res['Name'] }}
+                        Name: {{ res['name'] }}
                     </div>
                     <div>
-                        Sonstiges: {{ res['Sonstiges'] }}
+                        Sonstiges: {{ res['comment'] }}
                     </div>
                 </div>
             {% endfor %}
