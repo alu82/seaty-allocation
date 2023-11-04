@@ -1,2 +1,4 @@
 xlrd
 Jinja2
+jupyterlab
+pandas
