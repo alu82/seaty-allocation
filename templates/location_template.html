@@ -153,11 +153,11 @@
         
         function addSameReservationHover(classname) {
             function mouseOver(event) {
-                event.currentTarget.style.border = "2px solid #e3f988";
+                event.currentTarget.style.border = "2px solid #ff0000";
                 
                 const resnr = event.currentTarget.className.split(' ')[1];
                 document.querySelectorAll('div.'+CSS.escape(resnr)).forEach((seat) => {
-                    seat.style.border = "2px solid #e3f988";
+                    seat.style.border = "2px solid #ff0000";
                 });
             }
             
