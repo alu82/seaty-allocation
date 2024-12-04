@@ -3,6 +3,17 @@
         <title>Reservierungen mit Namen</title>
         <meta charset="utf-8">
         <style>
+            @page {
+              size: landscape;  /* Set the page to landscape */
+              margin: 0.9cm;       /* Optional: adjust margins as needed */
+            }
+            
+            @media print {
+                body {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
             
             .flex-container {
               display: flex;
@@ -10,14 +21,19 @@
             }        
 
             .flex-container > div.card {
-                width: 14rem;
+                width: 15rem;
                 margin: 0.49rem;
-                padding: 0.3rem;
+                padding: 0.2rem;
                 text-align: left;
                 line-height: 1.5em;
                 border:1px solid black;
                 min-height:7rem;
-                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            
+            div.resnr {
+                font-weight: bold;
+                font-size: 1.2em;
             }
             
         </style>
@@ -26,8 +42,8 @@
         <div class="flex-container">
             {% for res in reservations %}
                 <div class="card">
-                    <div>
-                        <strong>{{ res['code'] }}</strong>
+                    <div class="resnr">
+                        {{ res['code'] }}
                     </div>
                     <div>
                         Karten: {{ res['seats'] }}
@@ -36,7 +52,7 @@
                         Name: {{ res['name'] }}
                     </div>
                     <div>
-                        Sonstiges: {{ res['comment'] }}
+                        Notiz: {{ res['comment'] }}
                     </div>
                 </div>
             {% endfor %}

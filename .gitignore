@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 location_event_*.html
 reservation_cards_*.html
+event_*.html
